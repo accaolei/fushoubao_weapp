@@ -2,9 +2,9 @@
   "miniprogramRoot": "./dist",
   "projectname": "weapp",
   "description": "附售宝",
-  "appid": "touristappid",
+  "appid": "wxd14c6c057f71e17a",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "postcss": false,
     "minified": false

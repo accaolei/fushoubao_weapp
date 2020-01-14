@@ -1,0 +1,111 @@
+
+.no_product{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150PX;
+  .desc{
+    display: flex;
+    color: #919191;
+    font-size: 12PX;
+  }
+  .cart_icon{
+    width: 200px;
+    height: 200px;
+  }
+  .go{
+    margin-top: 30PX;
+    width: 300px;
+  }
+}
+.products{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 10px;
+    .item{
+        padding: 10px 30px;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        margin-bottom: 10px;
+        background-color: #fbfbfb;
+        
+        .img{
+            width: 140px;
+            height: 140px;
+            border-radius: 4px;
+            margin-right: 20px;
+        }
+        .content{
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-between;
+            .body{
+                .title{
+                    font-size: 14PX;
+                    font-weight: bold;
+                }
+                .desc{
+                    font-size: 12PX;
+                    color: #919191;
+                }
+            }
+            .other{
+                display: flex;
+                justify-content: space-between;
+                .price{
+                    font-size: 14PX;
+                    color: #D04A02;
+                    .unit{
+                        font-size: 10PX;
+                    }
+                }
+            }
+            .quantity{
+                display: flex;
+                width: 130px;
+                justify-content: space-between;
+                align-items: center;
+                .num{
+                    font-size: 12PX;
+                }
+            }
+        }
+    }
+}
+.bar_bottom{
+  width: 100vw;
+  position: fixed;
+  height: 60PX;
+  bottom: 0;
+  border-top: 1px solid #e9e9e9;
+  .content{
+    display: flex;
+    align-items: center;
+    .total_info{
+      display: flex;
+      align-items: center;
+      height: 60PX;
+      flex: 1;
+      font-size: 12PX;
+      padding-left: 20PX;
+      .label{
+        margin-right: 10px;
+      }
+    }
+    .paying{
+      display: flex;
+      height: 60PX;
+      width: 200px;
+      justify-content: center;
+      align-items: center;
+      font-size: 14PX;
+      color: white;
+      border-top: 1px solid #e9e9e9;
+      background-color: #477ee6;
+    }
+  }
+}

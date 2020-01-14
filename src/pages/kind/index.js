@@ -1,28 +1,138 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Button } from '@tarojs/components';
+import { View, Text, Button, Image } from '@tarojs/components';
+import { AtTabs, AtTabsPane, AtIcon, AtFab, AtBadge } from 'taro-ui';
+import { connect } from '@tarojs/redux';
 
+import './index.less'
+
+
+@connect(({ shop }) => ({
+  shop
+}))
 export default class Kind extends Component {
 
   config = {
     navigationBarTitleText: '分类'
   }
 
-  state = {}
+  state = {
+    current: 0
+  }
 
   componentWillMount() { }
-  componentDidMount() { }
+  componentDidMount() {
+    console.log(this.props)
+    this.props.dispatch({
+      type: 'shop/featchType',
+      payload: {
+        id: '501ed7d4c24bd92fe385b674478acd06',
+      }
+    })
+  }
   componentWillReceiveProps(nextProps, nextContext) { }
   componentWillUnmount() { }
   componentDidShow() { }
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidNotFound() { }
+
+  handlerTabClick(value) {
+    this.setState({
+      current: value
+    })
+  }
+
+  addQuantity(item) {
+    this.props.dispatch({
+      type: 'shop/addQuantity',
+      payload: {
+        ...item
+      }
+    })
+  }
+  subtractQuantity(item) {
+    this.props.dispatch({
+      type: 'shop/subtractQuantity',
+      payload: {
+        ...item
+      }
+    })
+  }
+  onGoCart() {
+    Taro.navigateTo({
+      url: '/pages/cart/index'
+    })
+  }
   render() {
+    const shop = this.props.shop;
+    const tabList = shop.type;
+    const products = shop.products;
     return (
       <View>
-        <Text>kind</Text>
-      </View>
+        <AtTabs
+          current={this.state.current}
+          scroll
+          height='100vh'
+          tabDirection='vertical'
+          tabList={tabList}
+          onClick={this.handlerTabClick.bind(this)}>
+          {tabList.map((item, index) =>
+            <AtTabsPane tabDirection='vertical' key={item.id} current={this.state.current} index={index}>
+              <View className='products'>
+                {products.map((p) => <View key={p.id} className='item'>
+                  <Image
+                    className='img'
+                    src={p.imgs[0]}
+                  />
+                  <View className="content">
+                    <View className="body">
+                      <View className="title">
+                        {p.name}
+                      </View>
+                      <View className="desc">
+                        {p.detail}
+                      </View>
+                    </View>
+                    <View className="other">
+                      <View className="price">
+                        <Text className="unit">￥</Text>{`${p.price} /${p.unit}`}
+                      </View>
+                      {p.quantity === undefined || p.quantity === 0 ? <View className="quantity-no">
+                        <AtIcon className='at-icon at-icon-add-circle' size='20' color='#477ee6' onClick={this.addQuantity.bind(this, p)}>
+                        </AtIcon>
+                      </View> :
+                        <View className="quantity">
+                          <AtIcon className='at-icon at-icon-subtract-circle' size='20' color='#477ee6' onClick={this.subtractQuantity.bind(this, p)}></AtIcon>
+                          <Text className="num">{p.quantity}</Text>
+                          <AtIcon className='at-icon at-icon-add-circle' size='20' color='#477ee6' onClick={this.addQuantity.bind(this, p)}>
+                          </AtIcon>
+                        </View>
+
+                      }
+                    </View>
+                  </View>
+                </View>)}
+              </View>
+            </AtTabsPane>)}
+
+        </AtTabs>
+        <View className="cart">
+          {shop.cartCount == 0 ?
+            <AtFab onClick={this.onGoCart.bind(this)}>
+              <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
+              </Text>
+            </AtFab>
+            :
+            <AtBadge value={this.props.shop.cartCount} maxValue={99}>
+              <AtFab onClick={this.onGoCart.bind(this)}>
+                <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
+                </Text>
+              </AtFab>
+            </AtBadge>
+          }
+
+        </View>
+      </View >
     );
   }
 }
-export default Kind;
