@@ -47,6 +47,12 @@ export default class Cart extends Component {
     })
   }
 
+  goCheckOut() {
+    Taro.navigateTo({
+      url: '/pages/checkout/index'
+    })
+  }
+
 
   render() {
     const shop = this.props.shop;
@@ -110,7 +116,7 @@ export default class Cart extends Component {
                 <View className='label'>{`合计:`}</View>
                 <View>￥12.00</View>
               </View>
-              <View className="paying">去结算</View>
+              <View className="paying" onClick={this.goCheckOut.bind(this)}>去结算</View>
             </View>
           </View>
         }

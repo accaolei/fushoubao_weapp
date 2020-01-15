@@ -37,6 +37,7 @@ class App extends Component {
       'pages/my/index',
       'pages/index/index',
       'pages/order/index',
+      'pages/checkout/index',
     ],
     window: {
       backgroundTextStyle: 'light',

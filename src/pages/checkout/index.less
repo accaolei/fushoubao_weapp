@@ -1,0 +1,66 @@
+page{
+    background-color: #fbfbfb;
+}
+.bar_bottom{
+  width: 100vw;
+  position: fixed;
+  height: 60PX;
+  bottom: 0;
+  border-top: 1px solid #e9e9e9;
+  background-color: #fff;
+  .content{
+    display: flex;
+    align-items: center;
+    .total_info{
+      display: flex;
+      align-items: center;
+      height: 60PX;
+      flex: 1;
+      font-size: 12PX;
+      padding-left: 20PX;
+      .label{
+        margin-right: 10px;
+      }
+    }
+    .paying{
+      display: flex;
+      height: 60PX;
+      width: 200px;
+      justify-content: center;
+      align-items: center;
+      font-size: 14PX;
+      color: white;
+      border-top: 1px solid #e9e9e9;
+      background-color: #477ee6;
+    }
+  }
+}
+
+.address{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px;
+    align-items: center;
+    .icon{
+        text-align: center;
+        width: 100px;
+        margin-right: 20px;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        .user_info{
+            font-size: 14PX;
+            font-weight: bold;
+            margin-bottom: 10px;
+            .name{
+                margin-right: 20px;
+            }
+        }
+        .addr{
+            font-size: 12PX;
+            color: #919191;
+        }
+        
+    }
+}
