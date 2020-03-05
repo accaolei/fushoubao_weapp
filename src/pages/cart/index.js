@@ -15,10 +15,14 @@ export default class Cart extends Component {
     navigationBarTitleText: '购物车'
   }
 
-  state = {}
+  state = {
+    total: 0
+  }
 
   componentWillMount() { }
-  componentDidMount() { }
+  componentDidMount() {
+    this.totalHandler()
+  }
   componentWillReceiveProps(nextProps, nextContext) { }
   componentWillUnmount() { }
   componentDidShow() { }
@@ -37,6 +41,7 @@ export default class Cart extends Component {
         ...item
       }
     })
+    this.totalHandler()
   }
   subtractQuantity(item) {
     this.props.dispatch({
@@ -45,11 +50,23 @@ export default class Cart extends Component {
         ...item
       }
     })
+    this.totalHandler()
   }
 
   goCheckOut() {
     Taro.navigateTo({
       url: '/pages/checkout/index'
+    })
+  }
+
+  totalHandler() {
+    const { shop } = this.props;
+    let total = 0;
+    shop.cartItems.map((item) => {
+      total += item.quantity * item.price
+    })
+    this.setState({
+      total: total
     })
   }
 
@@ -114,7 +131,7 @@ export default class Cart extends Component {
             <View className="content">
               <View className="total_info">
                 <View className='label'>{`合计:`}</View>
-                <View>￥12.00</View>
+                <View>￥{this.state.total}</View>
               </View>
               <View className="paying" onClick={this.goCheckOut.bind(this)}>去结算</View>
             </View>

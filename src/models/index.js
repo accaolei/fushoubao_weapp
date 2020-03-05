@@ -1,3 +1,4 @@
 import shop from '../models/shop';
+import user from '../models/user';
 
-export default [shop]
+export default [shop, user]

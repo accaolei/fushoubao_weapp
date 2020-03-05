@@ -36,9 +36,21 @@ export default class Kind extends Component {
   componentDidCatchError() { }
   componentDidNotFound() { }
 
-  handlerTabClick(value) {
+  handlerTabClick(value, event) {
     this.setState({
       current: value
+    })
+    const { type } = this.props.shop
+    console.log(value, event)
+    const item = type[value]
+    console.log(item)
+
+    this.props.dispatch({
+      type: 'shop/featchProduct',
+      payload: {
+        id: '501ed7d4c24bd92fe385b674478acd06',
+        tid: `${item.id}`
+      }
     })
   }
 
