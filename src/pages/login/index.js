@@ -82,14 +82,16 @@ export default class Index extends Component {
             const { dispatch } = this.props;
             console.log(this)
             const session_key = Taro.getStorageSync('session_key')
+
+            let extConfig = Taro.getExtConfigSync()
+            console.log(extConfig)
             dispatch({
                 type: 'user/login',
                 payload: {
                     ...data,
-                    session_key,
-                    encryptedData: encryptedData,
-                    iv: iv,
-                    signature: signature
+                    js_code: Taro.getStorageSync('js_code'),
+                    // appid: Taro.getExtConfigSync()
+                    appid: extConfig.id
                 }
             })
         } else if (errMsg == 'getUserInfo:fail auth deny') {

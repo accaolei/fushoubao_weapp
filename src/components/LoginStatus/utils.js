@@ -6,12 +6,14 @@ export const wxLogin = (that) => {
         success(res) {
             console.log(res)
             if (res.code) {
-                that.props.dispatch({
-                    type: 'user/jscode2Session',
-                    payload: {
-                        code: res.code
-                    }
-                })
+                Taro.setStorageSync('js_code', res.code)
+                // todo 微信登录
+                // that.props.dispatch({
+                //     type: 'user/jscode2Session',
+                //     payload: {
+                //         code: res.code
+                //     }
+                // })
             }
         }
     })
