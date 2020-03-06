@@ -25,7 +25,7 @@ export default class Kind extends Component {
     this.props.dispatch({
       type: 'shop/featchType',
       payload: {
-        id: extConfig.id,
+        id: extConfig.id
       }
     })
   }
