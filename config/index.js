@@ -85,6 +85,13 @@ const config = {
         }
       }
     }
+  },
+  copy: {
+    patterns: [
+      { from: 'ext.json', to: 'dist/ext.json' }
+    ],
+    options: {
+    }
   }
 }
 
