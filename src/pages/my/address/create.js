@@ -89,7 +89,7 @@ export default class Index extends Component {
                         name="address"
                         title='收货人地址'
                         type='text'
-                        placeholder='收货人姓名'
+                        placeholder='配送地址'
                         onChange={this.addressHandler.bind(this)}
                     />
                 </View>

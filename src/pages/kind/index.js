@@ -21,11 +21,11 @@ export default class Kind extends Component {
 
   componentWillMount() { }
   componentDidMount() {
-    console.log(this.props)
+    let extConfig = Taro.getExtConfigSync()
     this.props.dispatch({
       type: 'shop/featchType',
       payload: {
-        id: '501ed7d4c24bd92fe385b674478acd06',
+        id: extConfig.id,
       }
     })
   }

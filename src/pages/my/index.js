@@ -47,7 +47,7 @@ export default class My extends Component {
       <View>
         {user.isLogin ?
           <View className='container user_info'>
-            <View className='user_name'>{user.user.nickname}</View>
+            <View className='user_name'>{user.user.phone}</View>
             <View className="yu">再忙，也要记得吃饭~</View>
           </View>
           :
