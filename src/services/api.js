@@ -65,3 +65,27 @@ export const deleteAddress = (data) => Request({
   url: `/v1/user/address/${data.id}`,
   method: 'DELETE',
 })
+
+export const createOrder = (data) => Request({
+  url: `/v1/order`,
+  method: 'POST',
+  data: {
+    ...data
+  }
+})
+
+export const getOrderList = (data) => Request({
+  url: `/v1/order`,
+  method: 'GET',
+  data: {
+    ...data
+  }
+})
+
+export const deleteOrder = (data) => Request({
+  url: `/v1/order/${data.id}`,
+  method: 'DELETE',
+  data: {
+    ...data
+  }
+})

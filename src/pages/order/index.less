@@ -1,3 +1,6 @@
+page{
+  background-color: #fbfbfb;
+}
 .no_product{
   display: flex;
   flex-direction: column;
@@ -17,4 +20,101 @@
     margin-top: 30PX;
     width: 300px;
   }
+}
+.orders{
+  padding: 10PX 15px;
+  font-size: 14PX;
+  .order_item{
+    padding: 10PX;
+    background-color: #ffffff;
+    border-radius: 8PX;
+    margin-bottom: 10PX;
+    .header{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 10PX;
+      .order_num{
+        display: flex;
+        flex: 1;
+      }
+      .status{
+        padding: 0 20PX;
+      }
+      .line{
+        color: #ccc;
+      }
+      .delete{
+        margin-left: 15PX;
+      }
+    }
+    .content{
+      .body{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        .products{
+          display: flex;
+          // padding-left: 10px;
+          white-space: nowrap;
+          align-items: center;
+          justify-content: center;
+          height: 120rpx;
+          .p{
+            display: inline-flex;
+            width: 120rpx;
+            height: 120rpx;
+            margin: 0 10px;
+            align-items: center;
+            justify-content: center;
+            // background-color: red;
+            border-radius: 4px;
+          }
+        }
+        .count{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          // flex: 1;
+        }
+      }
+      .total{
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        padding: 10PX 0;
+        .label{
+          color: #919191;
+        }
+        .total_with_unit{
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          color: #f53e53;
+          .unit{
+            font-size: 12PX;
+            margin: 0 5PX;
+          }
+          .t{
+            font-size: 16PX;
+          }
+        }
+      }
+      .actives{
+        display: flex;
+        padding: 20px 0;
+        flex-direction: row;
+        justify-content: flex-end;
+        
+      }
+    }
+  }
+}
+.at-tabs__header{
+  position: fixed;
+  z-index: 100;
+}
+.at-tabs-pane{
+  padding-top: 45PX;
 }

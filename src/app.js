@@ -32,6 +32,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/order/index',
       'pages/my/index',
       'pages/my/address/index',
       'pages/my/address/create',
@@ -39,9 +40,7 @@ class App extends Component {
       'pages/login/index',
       'pages/kind/index',
       'pages/cart/index',
-
       'pages/index/index',
-      'pages/order/index',
       'pages/checkout/index',
     ],
     window: {

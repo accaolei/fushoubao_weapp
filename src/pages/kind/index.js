@@ -45,10 +45,11 @@ export default class Kind extends Component {
     const item = type[value]
     console.log(item)
 
+    let extConfig = Taro.getExtConfigSync()
     this.props.dispatch({
       type: 'shop/featchProduct',
       payload: {
-        id: '501ed7d4c24bd92fe385b674478acd06',
+        id: extConfig.id,
         tid: `${item.id}`
       }
     })

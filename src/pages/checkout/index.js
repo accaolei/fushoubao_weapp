@@ -37,8 +37,44 @@ export default class Index extends Component {
     componentDidCatchError() { }
     componentDidNotFound() { }
     goCheckOut() {
-        const { shop } = this.props;
+        const { shop, user } = this.props;
         const { cartItems } = shop;
+        console.log(shop, cartItems)
+        let extConfig = Taro.getExtConfigSync()
+        let { addressSelected } = user;
+        console.info(addressSelected)
+        if (addressSelected === undefined) {
+            Taro.showToast({
+                title: '请先选择地址',
+                icon: 'none'
+            })
+            return;
+        }
+
+        let products = cartItems.map((item) => {
+            return {
+                product_id: item.id,
+                name: item.name,
+                unit: item.unit,
+                price: item.price,
+                cover_img: item.cover,
+                quantity: item.quantity
+            }
+        })
+        let data = {
+            total: this.state.total,
+            shop_id: extConfig.id,
+            products: products,
+            receiver: addressSelected.name,
+            phone: addressSelected.phone,
+            address: addressSelected.address,
+        }
+        this.props.dispatch({
+            type: 'shop/creatOrder',
+            payload: {
+                ...data
+            }
+        })
 
     }
     chioseAddress() {

@@ -47,7 +47,7 @@ export default {
       }
     },
     *creatOrder({ payload }, { call, put }) {
-      const response = yield call(shop, payload);
+      const response = yield call(shop.createOrder, payload);
       console.log(response)
     }
 

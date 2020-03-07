@@ -13,6 +13,7 @@ export default {
         isLogin: false,
         token: '',
         address: [],
+        orders: []
     },
     effects: {
         *getUserInfo({ payload }, { call, put }) {
@@ -143,7 +144,37 @@ export default {
                     payload: {}
                 })
             }
+        },
+
+        *getOrderList({ payload }, { call, put }) {
+            const response = yield call(user.getOrderList, payload)
+            if (response && response.error_code === 0) {
+                yield put({
+                    type: 'save',
+                    payload: {
+                        orders: response.data
+                    }
+                })
+            }
+        },
+        *deleteOrder({ payload }, { call, put }) {
+            const response = yield call(user.deleteOrder, payload)
+            if (response && response.error_code === 0) {
+                Taro.showToast({
+                    title: '删除成功',
+                    icon: 'none'
+                })
+                if (payload.status) {
+                    yield put({
+                        type: 'getOrderList',
+                        payload: {
+                            status: payload.status
+                        }
+                    })
+                }
+            }
         }
+
 
 
 
