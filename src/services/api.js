@@ -89,3 +89,19 @@ export const deleteOrder = (data) => Request({
     ...data
   }
 })
+
+export const orderDetail = (data) => Request({
+  url: `/v1/order/${data.id}`,
+  method: 'GET',
+})
+
+export const payOrder = (data) => Request({
+  url: `/v1/order/${data.id}/pay`,
+  method: 'POST'
+})
+
+// 推荐商品
+export const shopRecommendProuct = (data) => Request({
+  url: `/v1/shop/${data.sid}/recommend`,
+  method: 'GET'
+})

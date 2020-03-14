@@ -162,7 +162,6 @@ export default {
             if (response && response.error_code === 0) {
                 Taro.showToast({
                     title: '删除成功',
-                    icon: 'none'
                 })
                 if (payload.status) {
                     yield put({

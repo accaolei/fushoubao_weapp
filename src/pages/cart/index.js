@@ -124,7 +124,7 @@ export default class Cart extends Component {
           <Image src="https://fushoubao.oss-cn-beijing.aliyuncs.com/icons/icon-%E8%B4%AD%E7%89%A9%E8%BD%A6.png" className='cart_icon'></Image>
           <View className="desc">你还未选购商品</View>
           <View className="go">
-            <AtButton type="primary" size="small" onClick={this.onGoKind.bind(this)}>去购物</AtButton>
+            <AtButton type="primary" size="small" onClick={this.onGoKind.bind(this)}>去选购</AtButton>
           </View>
         </View> :
           <View className='bar_bottom'>

@@ -77,6 +77,7 @@ export default class Index extends Component {
         })
 
     }
+
     chioseAddress() {
         Taro.navigateTo({
             url: '/pages/my/address/index'
@@ -137,7 +138,7 @@ export default class Index extends Component {
                 {/* <AtDivider></AtDivider> */}
                 <View>
                     <AtList hasBorder={false}>
-                        <AtListItem title='商品总额' extraText="￥85.0" hasBorder={false}></AtListItem>
+                        <AtListItem title='商品总额' extraText={`￥${this.state.total}`} hasBorder={false}></AtListItem>
                         <AtListItem title='运费' extraText="￥0" hasBorder={false}></AtListItem>
                     </AtList>
                 </View>

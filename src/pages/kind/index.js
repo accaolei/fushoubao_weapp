@@ -131,13 +131,13 @@ export default class Kind extends Component {
         </AtTabs>
         <View className="cart">
           {shop.cartCount == 0 ?
-            <AtFab onClick={this.onGoCart.bind(this)}>
+            <AtFab onClick={this.onGoCart.bind(this)} >
               <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
               </Text>
             </AtFab>
             :
             <AtBadge value={this.props.shop.cartCount} maxValue={99}>
-              <AtFab onClick={this.onGoCart.bind(this)}>
+              <AtFab onClick={this.onGoCart.bind(this)} >
                 <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
                 </Text>
               </AtFab>

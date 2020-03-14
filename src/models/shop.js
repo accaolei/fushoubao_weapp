@@ -9,7 +9,9 @@ export default {
     products: [],
     cartCount: 0,
     cartItems: [],
-    cartIds: new Map()
+    cartIds: new Map(),
+    orderDetail: null,
+    recommend: []
   },
   effects: {
     *featchType({ payload }, { call, put }) {
@@ -48,7 +50,58 @@ export default {
     },
     *creatOrder({ payload }, { call, put }) {
       const response = yield call(shop.createOrder, payload);
-      console.log(response)
+      if (response && response.error_code === 0) {
+        yield put({
+          type: 'payOrder',
+          payload: {
+            id: response.data.id
+          }
+        })
+      }
+    },
+    *payOrder({ payload }, { call, put }) {
+      console.log(payload)
+      const response = yield call(shop.payOrder, payload);
+      if (response && response.error_code === 0) {
+        Taro.requestPayment(response.data).then((response) => {
+          // 支付成功
+          Taro.navigateTo({
+            url: `/pages/order/detail/index?id=${payload.id}`
+          })
+        }).catch((err) => {
+          console.log(err)
+          if (err.errMsg === 'requestPayment:fail cancel') {
+            Taro.showToast({
+              title: '取消了支付',
+              icon: 'none'
+            })
+          }
+        })
+      }
+    },
+    *orderDetail({ payload }, { call, put }) {
+      const response = yield call(shop.orderDetail, payload);
+      if (response && response.error_code === 0) {
+        yield put({
+          type: 'save',
+          payload: {
+            orderDetail: response.data
+          }
+
+        })
+      }
+    },
+    *shopRecommendProuct({ payload }, { call, put }) {
+      const response = yield call(shop.shopRecommendProuct, payload);
+      if (response && response.error_code === 0) {
+        yield put({
+          type: 'save',
+          payload: {
+            recommend: response.data
+          }
+
+        })
+      }
     }
 
   },
