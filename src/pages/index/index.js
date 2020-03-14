@@ -34,7 +34,11 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  onGoCart() { }
+  onGoCart() {
+    Taro.navigateTo({
+      url: '/pages/cart/index'
+    })
+  }
 
   addQuantity(item) {
     this.props.dispatch({
@@ -53,7 +57,7 @@ export default class Index extends Component {
       <View className='index'>
         <View className="label_container">
           <View className="title">推荐</View>
-          <View className="desc">为您推荐</View>
+          <View className="desc">精选推荐</View>
         </View>
         <View className="recommend">
           {recommend.map((item) =>
@@ -76,8 +80,8 @@ export default class Index extends Component {
             </View>
           )}
         </View>
-        <Text>热销</Text>
-        <Text>当前订单</Text>
+        {/* <Text>热销</Text>
+        <Text>当前订单</Text> */}
         <View className="cart">
           {shop.cartCount == 0 ?
             <AtFab onClick={this.onGoCart.bind(this)} >

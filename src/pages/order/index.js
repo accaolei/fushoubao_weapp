@@ -2,12 +2,14 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import { AtButton, AtTabs, AtTabsPane, AtIcon, AtAvatar, AtDivider } from 'taro-ui';
 import { connect } from '@tarojs/redux';
+import loginStatus from '../../components/LoginStatus/index';
 import './index.less'
 
 
 @connect(({ user }) => ({
     user
 }))
+@loginStatus()
 export default class Cart extends Component {
 
     config = {
@@ -89,10 +91,25 @@ export default class Cart extends Component {
             url: `/pages/order/detail/index?id=${id}`,
         })
     }
+
     render() {
-        const tabList = [{ title: '全部' }, { title: '待支付' }, { title: '待配送' }, { title: '待收货' }]
-        let { orders } = this.props.user
-        console.log(orders)
+        const tabList = [{ title: '全部' }, { title: '待支付' }, { title: '待发货' }, { title: '待收货' }]
+        let { orders, isLogin } = this.props.user
+        if (isLogin === false) {
+            return (
+                <View className="unlogin">
+                    <View className="active">
+                        <View className="desc">你还未登录，请先登录</View>
+                        <AtButton onClick={() => {
+                            Taro.navigateTo({
+                                'url': '/pages/login/index?back=true'
+                            })
+                        }} type="primary" >去登录</AtButton>
+                    </View>
+
+                </View>
+            )
+        }
         return (
             <View>
                 <AtTabs current={this.state.current} tabList={tabList}
@@ -120,7 +137,7 @@ export default class Cart extends Component {
                                             <View onClick={this.goDetail.bind(this, item.id)}>
                                                 <View className="body">
                                                     <scroll-view scroll-x="true" style="height: 120rpx; width: 540rpx;white-space: nowrap;" class="products">
-                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`}>
+                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`} lazy-load={true}>
 
                                                         </Image>)}
                                                     </scroll-view>
@@ -177,7 +194,7 @@ export default class Cart extends Component {
                                             <View onClick={this.goDetail.bind(this, item.id)}>
                                                 <View className="body">
                                                     <scroll-view scroll-x="true" style="height: 120rpx; width: 540rpx;white-space: nowrap;" class="products">
-                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`}>
+                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`} lazy-load={true}>
 
                                                         </Image>)}
                                                     </scroll-view>
@@ -233,7 +250,7 @@ export default class Cart extends Component {
                                             <View onClick={this.goDetail.bind(this, item.id)}>
                                                 <View className="body">
                                                     <scroll-view scroll-x="true" style="height: 120rpx; width: 540rpx;white-space: nowrap;" class="products">
-                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`}>
+                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`} lazy-load={true}>
 
                                                         </Image>)}
                                                     </scroll-view>
@@ -285,7 +302,7 @@ export default class Cart extends Component {
                                             <View onClick={this.goDetail.bind(this, item.id)}>
                                                 <View className="body">
                                                     <scroll-view scroll-x="true" style="height: 120rpx; width: 540rpx;white-space: nowrap;" class="products">
-                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`}>
+                                                        {item.products.map((i) => <Image className="p" src={`${i.cover_img}`} lazy-load={true}>
 
                                                         </Image>)}
                                                     </scroll-view>

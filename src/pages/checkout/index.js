@@ -1,14 +1,15 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-
+import loginStatus from '../../components/LoginStatus/index';
 import './index.less'
 import { AtIcon, AtDivider, AtList, AtListItem } from 'taro-ui';
 
 
-@connect(({ shop, user }) => ({
-    shop, user
+@connect(({ shop, user, loading }) => ({
+    shop, user, loading
 }))
+@loginStatus()
 export default class Index extends Component {
 
     config = {
@@ -29,16 +30,23 @@ export default class Index extends Component {
         this.setState({
             total: total
         })
+        console.log(this.props)
     }
     componentWillReceiveProps(nextProps, nextContext) { }
     componentWillUnmount() { }
-    componentDidShow() { }
+    componentDidShow() {
+
+    }
     componentDidHide() { }
     componentDidCatchError() { }
     componentDidNotFound() { }
     goCheckOut() {
         const { shop, user } = this.props;
         const { cartItems } = shop;
+        if (user.isLogin === false) {
+            this.loginAltert()
+            return;
+        }
         console.log(shop, cartItems)
         let extConfig = Taro.getExtConfigSync()
         let { addressSelected } = user;
@@ -72,19 +80,44 @@ export default class Index extends Component {
         this.props.dispatch({
             type: 'shop/creatOrder',
             payload: {
-                ...data
+                ...data,
+                clear: true
             }
         })
 
     }
 
     chioseAddress() {
-        Taro.navigateTo({
-            url: '/pages/my/address/index'
+        const { user } = this.props;
+        if (user.isLogin) {
+            Taro.navigateTo({
+                url: '/pages/my/address/index'
+            })
+        } else {
+            this.loginAltert()
+        }
+
+    }
+    loginAltert() {
+        Taro.showModal({
+            title: '提示',
+            content: '你还未登录,进入登录页面登录？',
+            confirmText: '去登录',
+            success: function (res) {
+                if (res.confirm) {
+                    Taro.navigateTo({
+                        'url': '/pages/login/index?back=true'
+                    })
+                } else {
+                    console.log('取消')
+                }
+            }
         })
     }
     render() {
-
+        console.log(this.props.loading)
+        const loading = this.props.loading.effects['shop/creatOrder']
+        const inPayment = this.props.loading.effects['shop/payOrder']
         const { shop } = this.props;
         const { addressSelected } = this.props.user;
         return (
@@ -148,7 +181,13 @@ export default class Index extends Component {
                             <View className='label'>{`实付款:`}</View>
                             <View>￥{this.state.total}</View>
                         </View>
-                        <View className="paying" onClick={this.goCheckOut.bind(this)}>提交订单</View>
+                        {
+                            loading || inPayment ?
+                                <View className="paying" onClick={() => { console.log('提交中') }}>提交订单</View>
+                                :
+                                <View className="paying" onClick={this.goCheckOut.bind(this)}>提交订单</View>
+                        }
+
                     </View>
                 </View>
             </View>

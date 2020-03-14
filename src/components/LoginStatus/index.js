@@ -12,9 +12,16 @@ function loginStatus(opts = {}) {
                 const that = this;
                 // console.log(this)
                 const token = getLocalToken()
-                // console.log('token', !token)
+                console.log('token', `${token}`)
+
                 // const session_key = Taro.getStorageSync('session_key')
                 if (!token) {
+                    that.props.dispatch({
+                        type: 'user/save',
+                        payload: {
+                            isLogin: false,
+                        }
+                    })
                     const res = await wxLogin(that)
                     console.log('loginStatus', res)
                 } else {

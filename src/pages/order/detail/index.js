@@ -17,11 +17,17 @@ export default class OrderDetail extends Component {
 
     componentWillMount() { }
     componentDidMount() {
-        const { id } = this.$router.params;
+        const { id, clear } = this.$router.params;
         this.props.dispatch({
             type: 'shop/orderDetail',
             payload: { id: id }
         })
+        if (clear) {
+            this.props.dispatch({
+                type: 'shop/clearCart',
+                payload: {}
+            })
+        }
     }
     componentWillReceiveProps(nextProps, nextContext) { }
     componentWillUnmount() {
@@ -48,7 +54,9 @@ export default class OrderDetail extends Component {
                             </View>
                         </View>
                         <View className="detail">
-                            请尽快支付
+                            {orderDetail.status == '待支付' ? `请尽快支付，10分钟后将自动取消。` : ''}
+                            {orderDetail.status == '待发货' ? `备货中...` : ''}
+                            {orderDetail.status == '待收货' ? `物流配送中，请您保持电话畅通。` : ''}
                         </View>
                     </View>
                     <View className="active">

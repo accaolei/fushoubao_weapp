@@ -7,8 +7,8 @@ import { connect } from '@tarojs/redux';
 
 import './index.less'
 
-@connect(({ user }) => ({
-    user
+@connect(({ user, loading }) => ({
+    user, loading
 }))
 export default class Index extends Component {
 
@@ -68,6 +68,7 @@ export default class Index extends Component {
         })
     }
     render() {
+        const loading = this.props.loading.effects['user/createAddress']
         return (
             <View>
                 <View className="form">
@@ -94,7 +95,7 @@ export default class Index extends Component {
                     />
                 </View>
                 <View className="add">
-                    <AtButton circle type="primary" onClick={this.onSave.bind(this)}>保存</AtButton>
+                    <AtButton circle type="primary" loading={loading} onClick={this.onSave.bind(this)}>保存</AtButton>
                 </View>
             </View>
         );

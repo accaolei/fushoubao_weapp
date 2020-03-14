@@ -1,6 +1,8 @@
 import Taro, { startGyroscope } from '@tarojs/taro'
 import * as shop from '../services/api';
 
+let inPayment = false;
+
 export default {
 
   namespace: 'shop',
@@ -49,36 +51,55 @@ export default {
       }
     },
     *creatOrder({ payload }, { call, put }) {
+      if (inPayment) {
+        return;
+      }
+      inPayment = true;
+      const clear = payload.clear
+      delete payload.clear
       const response = yield call(shop.createOrder, payload);
       if (response && response.error_code === 0) {
         yield put({
           type: 'payOrder',
           payload: {
-            id: response.data.id
+            id: response.data.id,
+            clear: clear
           }
         })
+      } else {
+        inPayment = false;
       }
     },
     *payOrder({ payload }, { call, put }) {
-      console.log(payload)
+      inPayment = true;
       const response = yield call(shop.payOrder, payload);
       if (response && response.error_code === 0) {
         Taro.requestPayment(response.data).then((response) => {
           // 支付成功
           Taro.navigateTo({
-            url: `/pages/order/detail/index?id=${payload.id}`
+            url: `/pages/order/detail/index?id=${payload.id}&clear=${payload.clear}`,
+            success: function (res) {
+              res.eventChannel.emit('acceptDataFromOpenerPage', { clear: true })
+            }
           })
         }).catch((err) => {
-          console.log(err)
           if (err.errMsg === 'requestPayment:fail cancel') {
             Taro.showToast({
               title: '取消了支付',
               icon: 'none'
             })
+            Taro.navigateTo({
+              url: `/pages/order/detail/index?id=${payload.id}&clear=${payload.clear}`
+            })
           }
         })
+        setTimeout(function () {
+          inPayment = false;
+          console.log('取消了inPayment')
+        }, 2000)
       }
     },
+
     *orderDetail({ payload }, { call, put }) {
       const response = yield call(shop.orderDetail, payload);
       if (response && response.error_code === 0) {
@@ -87,7 +108,6 @@ export default {
           payload: {
             orderDetail: response.data
           }
-
         })
       }
     },
@@ -110,6 +130,15 @@ export default {
       return {
         ...state,
         ...payload
+      }
+    },
+    clearCart(state, { payload }) {
+      console.log('asdfas-----8888888888888')
+      return {
+        ...state,
+        cartItems: [],
+        cartCount: 0,
+        cartIds: new Map(),
       }
     },
     saveProduct(state, { payload }) {

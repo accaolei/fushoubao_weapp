@@ -96,6 +96,7 @@ export default class Kind extends Component {
                   <Image
                     className='img'
                     src={p.imgs[0]}
+                    lazy-load={true}
                   />
                   <View className="content">
                     <View className="body">

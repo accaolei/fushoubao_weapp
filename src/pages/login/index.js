@@ -23,7 +23,14 @@ export default class Index extends Component {
     }
 
     componentWillMount() { }
-    componentDidMount() { }
+    componentDidMount() {
+        const { back } = this.$router.params
+        this.setState({
+            back: back
+        })
+        console.log(this.state)
+        console.log(back)
+    }
     componentWillReceiveProps(nextProps, nextContext) { }
     componentWillUnmount() { }
     componentDidShow() { }
@@ -94,7 +101,8 @@ export default class Index extends Component {
             dispatch({
                 type: 'user/login',
                 payload: {
-                    ...post_data
+                    ...post_data,
+                    back: this.state.back
                 }
             })
         } else if (errMsg == 'getUserInfo:fail auth deny') {
@@ -106,6 +114,7 @@ export default class Index extends Component {
     }
     render() {
         const { user } = this.props
+        console.log(this.state)
         return (
             <View>
                 <View className="title">手机号登录</View>

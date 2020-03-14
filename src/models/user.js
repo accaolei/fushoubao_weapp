@@ -29,19 +29,29 @@ export default {
             }
         },
         *login({ payload }, { call, put }) {
+            console.log(payload)
+            const back = payload.back
+            delete payload.back
+            console.log(payload)
             var response = yield call(user.Login, payload)
             console.log(response)
             if (response.error_code === 0) {
                 yield put({
                     type: 'save',
                     payload: {
+                        isLogin: true,
                         token: response.data.token,
                     }
                 })
                 Taro.setStorageSync('loginDate', new Date())
                 Taro.setStorageSync('token', response.data.token)
                 Taro.setStorageSync('expires_in', response.data.expires_in)
-                Taro.reLaunch({ url: '/pages/index/index' })
+                if (back === 'true') {
+                    Taro.navigateBack()
+                } else {
+                    Taro.reLaunch({ url: '/pages/index/index' })
+                }
+
 
             } else {
                 Taro.showToast({ title: `${response.msg}`, icon: 'none' })
