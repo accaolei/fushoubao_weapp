@@ -39,6 +39,9 @@ export default (options = { method: 'GET', data: {} }) => {
     } else {
       console.log('错误')
       // throw new Error(`网络请求错误，状态码${statusCode}`)
+      if (statusCode == 401) {
+        Taro.removeStorageSync('token');
+      }
       return null
     }
   }).catch((res) => {
