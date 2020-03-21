@@ -3,6 +3,9 @@
     "extAppid": "wx6a89cc25734f9601",
     "directCommit": false,
     "ext": {
-        "id": "501ed7d4c24bd92fe385b674478acd06"
+        "id": "501ed7d4c24bd92fe385b674478acd06",
+        "msgIds": [
+            "SYW0IVEXvREUdtJXOnAoYI-kbZQlCzmIqlaYLMPFdzg"
+        ]
     }
 }

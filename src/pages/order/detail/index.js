@@ -13,7 +13,9 @@ export default class OrderDetail extends Component {
         navigationBarTitleText: '订单详情'
     }
 
-    state = {}
+    state = {
+        mainSwitch: false
+    }
 
     componentWillMount() { }
     componentDidMount() {
@@ -40,6 +42,15 @@ export default class OrderDetail extends Component {
     componentDidHide() { }
     componentDidCatchError() { }
     componentDidNotFound() { }
+
+    setSubscribeHander() {
+        let extConfig = Taro.getExtConfigSync()
+        Taro.requestSubscribeMessage({
+            tmplIds: extConfig.msgIds
+        }).then(function (res) { console.log(res) }).catch(
+            (err) => { console.log(err) }
+        )
+    }
     render() {
         const { orderDetail } = this.props.shop
         console.log(orderDetail)
@@ -130,12 +141,9 @@ export default class OrderDetail extends Component {
                 </View>
 
                 <View className="actions">
-                    {/* <View className="item">
-                        <AtButton circle size="small">再次购买</AtButton>
-                    </View> */}
 
                     <View className="item">
-                        <AtButton circle size="small">删除订单</AtButton>
+                        <AtButton circle size="small" type="primary" onClick={this.setSubscribeHander.bind(this)}>接收此订单通知消息</AtButton>
                     </View>
                 </View>
             </View>

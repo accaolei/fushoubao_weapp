@@ -3,7 +3,7 @@ import { View } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import loginStatus from '../../components/LoginStatus/index';
 import './index.less'
-import { AtIcon, AtDivider, AtList, AtListItem } from 'taro-ui';
+import { AtIcon, AtDivider, AtList, AtListItem, AtButton } from 'taro-ui';
 
 
 @connect(({ shop, user, loading }) => ({
@@ -114,6 +114,7 @@ export default class Index extends Component {
             }
         })
     }
+
     render() {
         console.log(this.props.loading)
         const loading = this.props.loading.effects['shop/creatOrder']
@@ -185,7 +186,8 @@ export default class Index extends Component {
                             loading || inPayment ?
                                 <View className="paying" onClick={() => { console.log('提交中') }}>提交订单</View>
                                 :
-                                <View className="paying" onClick={this.goCheckOut.bind(this)}>提交订单</View>
+                                <View className="paying" onClick={this.goCheckOut.bind(this)} >提交订单</View>
+
                         }
 
                     </View>

@@ -73,10 +73,56 @@ page{
 
 .cart{
     position: fixed;
-    bottom: 300px;
+    bottom: 200px;
     right: 20px;
 }
 .at-badge__num{
     right: 10px;
     top: 5px;
+}
+// 未完成订单
+.new_orders{
+    padding: 10px 20px;
+    .order_item{
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        border-radius: 8PX;
+        padding: 20px;
+        .cover_img{
+            width: 150px;
+            height: 150px;
+            margin-right: 25px;
+            border-radius: 4px;
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .header{
+                .products{
+                    font-size: 16PX;
+                }
+                .order_num{
+                    font-size: 12PX;
+                    color: #919191;
+                }
+            }
+            .body{
+                font-size: 14PX;
+                color: #5a5a5a;
+            }
+        }
+    }
+    .extar{
+        display: flex;
+        justify-content: center;
+        .more{
+            // background-color: #fbf6ee;
+            border-radius: 4PX;
+            color: #d48f38;
+            font-size: 12PX;
+            padding: 10px;
+        }
+    }
 }

@@ -13,7 +13,7 @@ export default {
         isLogin: false,
         token: '',
         address: [],
-        orders: []
+        orders: [],
     },
     effects: {
         *getUserInfo({ payload }, { call, put }) {
@@ -46,6 +46,10 @@ export default {
                 Taro.setStorageSync('loginDate', new Date())
                 Taro.setStorageSync('token', response.data.token)
                 Taro.setStorageSync('expires_in', response.data.expires_in)
+                yield put({
+                    type: 'getUserInfo',
+                    payload: {}
+                })
                 if (back === 'true') {
                     Taro.navigateBack()
                 } else {
@@ -178,6 +182,36 @@ export default {
                         type: 'getOrderList',
                         payload: {
                             status: payload.status
+                        }
+                    })
+                }
+            }
+        },
+        *fetchUnfinishedOrder({ payload }, { call, put }) {
+            const response = yield call(user.unfinishedOrder, payload)
+            if (response && response.error_code === 0) {
+                if (response.have) {
+                    var _data = response.data
+                    var productStr = _data.products[0].name;
+                    const pCount = _data.products.length;
+                    if (pCount > 1) {
+                        productStr += `等${pCount}件商品`
+                    }
+
+                    var data = {
+                        id: _data.id,
+                        productStr: productStr,
+                        coverImg: _data.products[0].cover_img,
+                        createAt: _data.current_state.create_at,
+                        operationName: _data.current_state.operation_name,
+                        description: _data.current_state.description,
+                        order_num: _data.order_num,
+                        status: _data.status
+                    }
+                    yield put({
+                        type: 'save',
+                        payload: {
+                            unfinishedOrder: data
                         }
                     })
                 }

@@ -16,33 +16,47 @@ export default class My extends Component {
     navigationBarTitleText: '我的'
   }
 
-  state = {}
+  state = {
+    mainSwitch: false
+  }
 
   componentWillMount() { }
   componentDidMount() {
-    console.log(this.props)
     this.props.dispatch({
       type: 'user/getUserInfo',
       payload: {
       }
     })
-    let extConfig = Taro.getExtConfigSync()
-    console.log(extConfig)
   }
   componentWillReceiveProps(nextProps, nextContext) { }
   componentWillUnmount() { }
-  componentDidShow() { }
+  componentDidShow() {
+    // this.getSttingInfo()
+  }
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidNotFound() { }
+
+
+
+  setSubscribeHander() {
+    let extConfig = Taro.getExtConfigSync()
+    Taro.requestSubscribeMessage({
+      tmplIds: extConfig.msgIds
+    }).then(function (res) { console.log(res) }).catch(
+      (err) => { console.log(err) }
+    )
+  }
 
   onLogin() {
     Taro.navigateTo({
       url: '/pages/login/index'
     })
   }
+
   render() {
     const { user } = this.props;
+    const { mainSwitch } = this.state;
     return (
       <View>
         {user.isLogin ?
@@ -59,8 +73,12 @@ export default class My extends Component {
 
         <View className="my_items">
           <AtList hasBorder={false}>
-            <AtListItem title='我的订单' arrow='right'></AtListItem>
-            <AtListItem title='投诉建议' arrow='right'></AtListItem>
+            <AtListItem
+              title='订阅消息通知' note='订单状态变更通知'
+              onClick={this.setSubscribeHander.bind(this)}
+              extraText={mainSwitch ? '已订阅' : ''} arrow='right'>
+            </AtListItem>
+            <AtListItem title='投诉建议' note='功能和服务的建议和投诉' arrow='right'></AtListItem>
           </AtList>
         </View>
       </View>

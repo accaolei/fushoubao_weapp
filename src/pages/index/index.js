@@ -18,8 +18,23 @@ export default class Index extends Component {
   componentWillMount() { }
 
   componentDidMount() {
+
+    this.fetchRecommendProduct();
+
+  }
+
+  componentWillUnmount() { }
+
+  componentDidShow() {
+    this.fetchRecommendProduct();
+    this.fetchUnfinishedOrder();
+  }
+
+  componentDidHide() { }
+
+  fetchRecommendProduct() {
+    // 获取推荐
     let extConfig = Taro.getExtConfigSync()
-    console.log(`aasdfd: ${extConfig}`)
     this.props.dispatch({
       type: 'shop/shopRecommendProuct',
       payload: {
@@ -27,12 +42,12 @@ export default class Index extends Component {
       }
     })
   }
-
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
+  fetchUnfinishedOrder() {
+    this.props.dispatch({
+      type: 'user/fetchUnfinishedOrder',
+      payload: {}
+    })
+  }
 
   onGoCart() {
     Taro.navigateTo({
@@ -47,14 +62,38 @@ export default class Index extends Component {
         ...item
       }
     })
+    Taro.navigateTo
   }
 
+  navigateToOrderDetail(id) {
+    Taro.navigateTo({
+      url: `/pages/order/detail/index?id=${id}`
+    })
+  }
+
+
+
   render() {
-    const { shop } = this.props;
+    const { shop, user } = this.props;
     const { recommend } = this.props.shop;
-    console.log(shop);
+    const { unfinishedOrder } = user;
+
     return (
       <View className='index'>
+        {unfinishedOrder && <View className="new_orders">
+          <View className="order_item" onClick={this.navigateToOrderDetail.bind(this, unfinishedOrder.id)}>
+            <Image className="cover_img" src={unfinishedOrder.coverImg}></Image>
+            <View className="content">
+              <View className="header">
+                <View className="products">{unfinishedOrder.productStr}</View>
+                <View className="order_num">{`订单号: ${unfinishedOrder.order_num}`}</View>
+              </View>
+              <View className="body">
+                {`最新状态: ${unfinishedOrder.status}`}
+              </View>
+            </View>
+          </View>
+        </View>}
         <View className="label_container">
           <View className="title">推荐</View>
           <View className="desc">精选推荐</View>

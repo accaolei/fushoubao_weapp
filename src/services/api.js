@@ -105,3 +105,8 @@ export const shopRecommendProuct = (data) => Request({
   url: `/v1/shop/${data.sid}/recommend`,
   method: 'GET'
 })
+
+export const unfinishedOrder = (data) => Request({
+  url: `/v1/order/unfinished`,
+  method: 'GET'
+})

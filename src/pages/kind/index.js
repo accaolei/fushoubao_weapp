@@ -21,6 +21,10 @@ export default class Kind extends Component {
 
   componentWillMount() { }
   componentDidMount() {
+    this.fetchProductType()
+  }
+
+  fetchProductType() {
     let extConfig = Taro.getExtConfigSync()
     this.props.dispatch({
       type: 'shop/featchType',
@@ -31,7 +35,9 @@ export default class Kind extends Component {
   }
   componentWillReceiveProps(nextProps, nextContext) { }
   componentWillUnmount() { }
-  componentDidShow() { }
+  componentDidShow() {
+    this.fetchProductType()
+  }
   componentDidHide() { }
   componentDidCatchError() { }
   componentDidNotFound() { }
