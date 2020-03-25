@@ -1,3 +1,4 @@
+const path = require('path')
 const config = {
   projectName: 'weapp',
   date: '2020-1-4',
@@ -92,6 +93,12 @@ const config = {
     ],
     options: {
     }
+  },
+  alias: {
+    '@/services': path.resolve(__dirname, '..', 'src/services'),
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+    '@/store': path.resolve(__dirname, '..', 'src/store')
   }
 }
 

@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import { AtFab } from 'taro-ui';
 import './index.less'
-import loginStatus from '../../../components/LoginStatus/index';
+import loginStatus from '@/components/LoginStatus/index';
 import { connect } from '@tarojs/redux';
 
 @connect(({ user }) => ({
