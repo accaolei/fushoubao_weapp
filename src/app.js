@@ -35,6 +35,8 @@ class App extends Component {
       'pages/index/index',
       'pages/order/index',
       'pages/order/detail/index',
+      'pages/my/complaints/index',
+      'pages/my/complaints/create',
 
       'pages/my/index',
       'pages/my/address/index',

@@ -54,6 +54,34 @@ export default class My extends Component {
     })
   }
 
+  onComplaints() {
+    const { user } = this.props;
+    if (user.isLogin) {
+      Taro.navigateTo({
+        url: '/pages/my/complaints/index'
+      })
+    } else {
+      this.loginAltert()
+    }
+  }
+
+  loginAltert() {
+    Taro.showModal({
+      title: '提示',
+      content: '你还未登录,进入登录页面登录？',
+      confirmText: '去登录',
+      success: function (res) {
+        if (res.confirm) {
+          Taro.navigateTo({
+            'url': '/pages/login/index?back=true'
+          })
+        } else {
+          console.log('取消')
+        }
+      }
+    })
+  }
+
   render() {
     const { user } = this.props;
     const { mainSwitch } = this.state;
@@ -73,12 +101,12 @@ export default class My extends Component {
 
         <View className="my_items">
           <AtList hasBorder={false}>
-            <AtListItem
+            {/* <AtListItem
               title='订阅消息通知' note='订单状态变更通知'
               onClick={this.setSubscribeHander.bind(this)}
               extraText={mainSwitch ? '已订阅' : ''} arrow='right'>
-            </AtListItem>
-            <AtListItem title='投诉建议' note='功能和服务的建议和投诉' arrow='right'></AtListItem>
+            </AtListItem> */}
+            <AtListItem title='投诉建议' onClick={this.onComplaints.bind(this)} note='功能和服务的建议和投诉' arrow='right'></AtListItem>
           </AtList>
         </View>
       </View>

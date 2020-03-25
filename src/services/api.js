@@ -110,3 +110,8 @@ export const unfinishedOrder = (data) => Request({
   url: `/v1/order/unfinished`,
   method: 'GET'
 })
+
+export const complaints = (data) => Request({
+  url: `/v1/complaints`,
+  method: 'GET'
+})

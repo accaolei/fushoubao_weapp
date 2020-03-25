@@ -14,6 +14,7 @@ export default {
         token: '',
         address: [],
         orders: [],
+        complaints: []
     },
     effects: {
         *getUserInfo({ payload }, { call, put }) {
@@ -215,6 +216,18 @@ export default {
                         }
                     })
                 }
+            }
+        },
+        *fetchComplaints({ payload }, { call, put }) {
+            const response = yield call(user.complaints, payload)
+            console.log(response);
+            if (response && response.error_code === 0) {
+                yield put({
+                    type: 'save',
+                    payload: {
+                        complaints: response.data
+                    }
+                })
             }
         }
 

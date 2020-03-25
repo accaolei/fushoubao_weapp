@@ -6,6 +6,7 @@ import './index.less'
 import { AtIcon, AtFab, AtBadge } from 'taro-ui';
 
 
+
 @connect(({ shop, user }) => ({
   shop, user
 }))

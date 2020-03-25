@@ -24,7 +24,7 @@ export default class Cart extends Component {
     componentDidMount() {
         let params = this.$router.params;
         let status = params.type ? params.type : this.state.current
-        if (status === 0) { status = '1,2,3,4,5' }
+        if (status === 0) { status = '1,2,3,4,5,6,7,15' }
         if (status === 2) { status = '2,3' }
         let data = {
             status
@@ -36,7 +36,7 @@ export default class Cart extends Component {
     componentDidShow() {
         console.log('adfasd')
         let status = this.state.current
-        if (status === 0) { status = '1,2,3,4,5' }
+        if (status === 0) { status = '1,2,3,4,5,6,7,15' }
         if (status === 2) { status = '2,3' }
         let data = {
             status
@@ -51,7 +51,7 @@ export default class Cart extends Component {
             current: value
         })
         let status = value;
-        if (value === 0) { status = '1,2,3,4,5' }
+        if (value === 0) { status = '1,2,3,4,5,6,7,15' }
         if (status === 2) { status = '2,3' }
         this.getOrder({ 'status': status });
     }
@@ -76,7 +76,7 @@ export default class Cart extends Component {
 
     deleteHandler(id) {
         let status = this.state.current
-        if (status === 0) { status = '1,2,3,4,5' }
+        if (status === 0) { status = '1,2,3,4,5,6,7,15' }
         if (status === 2) { status = '2,3' }
         let data = {
             id,
@@ -167,13 +167,14 @@ export default class Cart extends Component {
                                             </View>
                                             <AtDivider height="10" lineColor="#f7f7f7"></AtDivider>
                                             <View className="actives">
-                                                <View className="item">
+                                                {/* <View className="item">
                                                     <AtButton circle size="small" onClick={this.setSubscribeHander.bind(this)}>接收此订单通知消息</AtButton>
-                                                </View>
-                                                {item.status == '待支付' &&
+                                                </View> */}
+                                                {item.status == '待支付' ?
                                                     <View className="item">
                                                         <AtButton size="small" type="secondary" circle onClick={this.payOrder.bind(this, item)}>立即支付</AtButton>
-                                                    </View>
+                                                    </View> :
+                                                    <AtButton size="small" type="secondary" circle onClick={this.goDetail.bind(this, item.id)}>查看详情</AtButton>
                                                 }
                                             </View>
 
@@ -283,9 +284,10 @@ export default class Cart extends Component {
                                             </View>
                                             <AtDivider height="10" lineColor="#f7f7f7"></AtDivider>
                                             <View className="actives">
-                                                <View className="item">
+                                                {/* <View className="item">
                                                     <AtButton circle size="small" onClick={this.setSubscribeHander.bind(this)}>接收此订单通知消息</AtButton>
-                                                </View>
+                                                </View> */}
+                                                <AtButton size="small" type="secondary" circle onClick={this.goDetail.bind(this, item.id)}>查看详情</AtButton>
                                             </View>
 
 
@@ -337,9 +339,10 @@ export default class Cart extends Component {
                                             </View>
                                             <AtDivider height="10" lineColor="#f7f7f7"></AtDivider>
                                             <View className="actives">
-                                                <View className="item">
+                                                {/* <View className="item">
                                                     <AtButton circle size="small" onClick={this.setSubscribeHander.bind(this)}>接收此订单通知消息</AtButton>
-                                                </View>
+                                                </View> */}
+                                                <AtButton size="small" type="secondary" circle onClick={this.goDetail.bind(this, item.id)}>查看详情</AtButton>
                                             </View>
 
 
