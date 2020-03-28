@@ -47,11 +47,11 @@ export default class ComplaintsViews extends Component {
                     :
                     <View>有</View>
                 }
-                <View className="add_btn">
+                {/* <View className="add_btn">
                     <AtFab onClick={this.onCreate.bind(this)} >
                         <Text className='at-fab__icon at-icon at-icon-add'></Text>
                     </AtFab>
-                </View>
+                </View> */}
             </View>
         );
     }

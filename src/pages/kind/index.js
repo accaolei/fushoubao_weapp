@@ -82,10 +82,19 @@ export default class Kind extends Component {
       url: '/pages/cart/index'
     })
   }
+  navigateToProductDetail(id) {
+    Taro.navigateTo({
+      url: `/pages/product_detail/index?id=${id}`
+    })
+  }
   render() {
     const shop = this.props.shop;
     const tabList = shop.type;
     const products = shop.products;
+    let cartCount = 0
+    for (var key in shop.cartItems) {
+      cartCount += shop.cartItems[key].quantity
+    }
     return (
       <View>
         <AtTabs
@@ -98,14 +107,15 @@ export default class Kind extends Component {
           {tabList.map((item, index) =>
             <AtTabsPane tabDirection='vertical' key={item.id} current={this.state.current} index={index}>
               <View className='products'>
-                {products.map((p) => <View key={p.id} className='item'>
+                {products.map((p) => <View key={p.id} className='item' >
                   <Image
                     className='img'
                     src={p.imgs[0]}
                     lazy-load={true}
+                    onClick={this.navigateToProductDetail.bind(this, item.id)}
                   />
-                  <View className="content">
-                    <View className="body">
+                  <View className="content" >
+                    <View className="body" onClick={this.navigateToProductDetail.bind(this, item.id)}>
                       <View className="title">
                         {p.name}
                       </View>
@@ -137,13 +147,13 @@ export default class Kind extends Component {
 
         </AtTabs>
         <View className="cart">
-          {shop.cartCount == 0 ?
+          {cartCount == 0 ?
             <AtFab onClick={this.onGoCart.bind(this)} >
               <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
               </Text>
             </AtFab>
             :
-            <AtBadge value={this.props.shop.cartCount} maxValue={99}>
+            <AtBadge value={cartCount} maxValue={99}>
               <AtFab onClick={this.onGoCart.bind(this)} >
                 <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
                 </Text>

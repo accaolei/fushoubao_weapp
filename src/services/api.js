@@ -8,13 +8,19 @@ export const ProductType = data => Request({
   }
 })
 
-
+// 产品列表
 export const ProudctList = data => Request({
   url: `/v1/shop/${data.id}/product`,
   method: 'GET',
   data: {
     ...data
   }
+})
+
+// 产品详情
+export const ProductDetail = data => Request({
+  url: `/v1/shop/product/${data.id}`,
+  method: 'GET',
 })
 
 export const Login = data => Request({
@@ -64,6 +70,16 @@ export const getAddress = (data) => Request({
 export const deleteAddress = (data) => Request({
   url: `/v1/user/address/${data.id}`,
   method: 'DELETE',
+})
+
+export const createComplaints = (data) => Request({
+  url: `/v1/complaints`,
+  method: 'POST'
+})
+
+export const getComplaints = (data) => Request({
+  url: `/v1/complaints`,
+  method: 'GET'
 })
 
 export const createOrder = (data) => Request({

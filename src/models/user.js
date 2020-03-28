@@ -229,7 +229,8 @@ export default {
                     }
                 })
             }
-        }
+        },
+        *createComplaints({ })
 
 
 

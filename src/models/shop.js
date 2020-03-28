@@ -13,7 +13,7 @@ export default {
     cartItems: [],
     cartIds: new Map(),
     orderDetail: null,
-    recommend: []
+    recommend: [],
   },
   effects: {
     *featchType({ payload }, { call, put }) {
@@ -122,6 +122,18 @@ export default {
 
         })
       }
+    },
+    *fetchProductDetail({ payload }, { call, put }) {
+      const response = yield call(shop.ProductDetail, payload);
+      if (response && response.error_code === 0) {
+        yield put({
+          type: 'save',
+          payload: {
+            productDetail: response.data
+          }
+        })
+      }
+
     }
 
   },

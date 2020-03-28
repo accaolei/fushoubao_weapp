@@ -72,12 +72,22 @@ export default class Index extends Component {
     })
   }
 
+  navigateToProductDetail(id) {
+    Taro.navigateTo({
+      url: `/pages/product_detail/index?id=${id}`
+    })
+  }
+
 
 
   render() {
     const { shop, user } = this.props;
     const { recommend } = this.props.shop;
     const { unfinishedOrder } = user;
+    let cartCount = 0
+    for (var key in shop.cartItems) {
+      cartCount += shop.cartItems[key].quantity
+    }
 
     return (
       <View className='index'>
@@ -101,10 +111,13 @@ export default class Index extends Component {
         </View>
         <View className="recommend">
           {recommend.map((item) =>
-            <View className="item">
-              <Image mode="aspectFill" lazy-load={true} className="img" src={`${item.imgs[0]}`}></Image>
-              <View className="content">
-                <View className="body">
+            <View className="item" >
+              <Image
+                mode="aspectFill" lazy-load={true} className="img" src={`${item.imgs[0]}`}
+                onClick={this.navigateToProductDetail.bind(this, item.id)}
+              ></Image>
+              <View className="content" >
+                <View className="body" onClick={this.navigateToProductDetail.bind(this, item.id)}>
                   <View className="name">{item.name}</View>
                   <View className="desc">{item.detail}</View>
                   <View className="price">
@@ -123,13 +136,13 @@ export default class Index extends Component {
         {/* <Text>热销</Text>
         <Text>当前订单</Text> */}
         <View className="cart">
-          {shop.cartCount == 0 ?
+          {cartCount == 0 ?
             <AtFab onClick={this.onGoCart.bind(this)} >
               <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
               </Text>
             </AtFab>
             :
-            <AtBadge value={shop.cartCount} maxValue={99}>
+            <AtBadge value={cartCount} maxValue={99}>
               <AtFab onClick={this.onGoCart.bind(this)}>
                 <Text className='at-fab__icon at-icon at-icon-shopping-cart'>
                 </Text>
